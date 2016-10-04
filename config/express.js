@@ -7,22 +7,20 @@ var express = require('express');
 var flash = require('connect-flash');
 var helpers = require('view-helpers');
 var compression = require('compression');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var path = require('path');
-var sessionMiddleware = require('./middlewares/session');
 var config = require('./config');
 var winston = require('./winston');
 
-module.exports = function(app, passport) {
+module.exports = function(app) {
 
     winston.info('Initializing Express');
 
-    app.set('showStackError', true);    
-    
+    app.set('showStackError', true);
+
     //Prettify HTML
     app.locals.pretty = true;
 
@@ -34,9 +32,7 @@ module.exports = function(app, passport) {
         level: 9
     }));
 
-    //Setting the fav icon and static folder
-    app.use(favicon(config.root + '/public/img/icons/favicon.ico'));
-    app.use(express.static(config.root + '/public'));
+
 
     //Don't use logger for test env
     if (config.NODE_ENV !== 'test') {
@@ -50,16 +46,13 @@ module.exports = function(app, passport) {
     //Enable jsonp
     app.enable("jsonp callback");
 
-    //cookieParser should be above session
-    app.use(cookieParser());
+
 
     // request body parsing middleware should be above methodOverride
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     app.use(methodOverride());
 
-    //express session configuration
-    app.use(sessionMiddleware);
 
     //connect flash for flash messages
     app.use(flash());
@@ -67,9 +60,6 @@ module.exports = function(app, passport) {
     //dynamic helpers
     app.use(helpers(config.app.name));
 
-    //use passport session
-    app.use(passport.initialize());
-    app.use(passport.session());
 
     // Globbing routing files
     config.getGlobbedFiles('./app/routes/**/*.js').forEach(function(routePath) {
