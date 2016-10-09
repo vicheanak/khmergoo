@@ -6,16 +6,14 @@ block content
 		include layouts/aside
 		section(class="content-section")
 			ul(class="item-section")
-			- if (typeof(results) !== 'undefined'){
-				each item in results.items
-					-var postedDate = item.createdAt
-					li(class="item-container")
-						div(class="item-description-container")
-							a(class="item-title", target="blank", href="http://#{item.url}") #{item.name}
-							p(class="item-subtitle") #{item.Website.name} - #{moment().utc().diff(moment(postedDate).utc(), 'hours')} hr ago
-							p(class="item-description") #{item.description}
-						img(class="item-thumbnail", src="/images/thumbnail.jpg")
-			- }
+			each item in results.items
+				-var postedDate = item.createdAt
+				li(class="item-container")
+					div(class="item-description-container")
+						a(class="item-title", target="blank", href="http://#{item.url}") #{item.name}
+						p(class="item-subtitle") #{item.Website.name} - #{moment().utc().diff(moment(postedDate).utc(), 'hours')} hr ago
+						p(class="item-description") #{item.description}
+					img(class="item-thumbnail", src="/images/thumbnail.jpg")
 	section(class="footer-section")
 		ul(class="pagination-container")
 			- for (var i = 0; i < results.totalPages; i ++){
