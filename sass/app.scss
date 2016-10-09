@@ -235,13 +235,14 @@ and (max-device-width : 568px) {
 		display: block;
 	}
 
-	.item-description-container{
-		@include flex(20 auto);
-	}
+
 
 	.item-container{
 		@include display-flex();
 		@include flex-direction(column);
+		.item-description-container{
+			@include flex(20 auto);
+		}
 	}
 
 }
