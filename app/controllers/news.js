@@ -64,7 +64,8 @@ exports.khmerNews = function(req, res) {
             limit: limit,
             totalPages: Math.ceil(items.count / limit),
             slug: 'khmer-news',
-            currentPage: page
+            currentPage: page,
+            title: 'ពត៌មានជាតិ'
         };
         return res.render('index', {"results": results});
     }).catch(function(err){
@@ -98,6 +99,7 @@ exports.internationalNews = function(req, res) {
             limit: limit,
             totalPages: Math.ceil(items.count / limit),
             slug: 'international-news',
+            title: 'ពត៌មានអន្តរជាតិ',
             currentPage: page
         };
         return res.render('index', {results: results});

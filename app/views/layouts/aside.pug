@@ -3,6 +3,12 @@ aside(id="aside-menu")
 		h1(class="menu-title") ពត៌មាន
 		ul(class="menu-item")
 			li
-				a(href="/khmer-news") ជាតិ
+				if (results.slug == 'khmer-news')
+					span(class="menu-active") ជាតិ
+				else
+					a(href="/khmer-news") ជាតិ
 			li
-				a(href="/international-news") អន្តរជាតិ
+				if (results.slug == 'international-news')
+					span(class="menu-active") អន្តរជាតិ
+				else
+					a(href="/international-news") អន្តរជាតិ
