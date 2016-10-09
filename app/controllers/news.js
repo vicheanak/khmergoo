@@ -8,7 +8,7 @@ exports.all = function(req, res) {
     db.NewsCategory.findAll().then(function(categories){
         return res.render('index', {categories: categories});
     }).catch(function(err){
-        return res.render('error', {
+        return res.render('500', {
             error: err,
             status: 500
         });
@@ -34,7 +34,7 @@ exports.items = function(req, res) {
     }).then(function(items){
         return res.jsonp(items);
     }).catch(function(err){
-        return res.render('error', {
+        return res.render('500', {
             error: err,
             status: 500
         });
@@ -68,7 +68,7 @@ exports.khmerNews = function(req, res) {
         };
         return res.render('index', {"results": results});
     }).catch(function(err){
-        return res.render('error', {
+        return res.render('500', {
             error: err,
             status: 500
         });
@@ -102,7 +102,7 @@ exports.internationalNews = function(req, res) {
         };
         return res.render('index', {results: results});
     }).catch(function(err){
-        return res.render('error', {
+        return res.render('500', {
             error: err,
             status: 500
         });

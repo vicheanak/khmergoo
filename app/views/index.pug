@@ -7,7 +7,7 @@ block content
 		section(class="content-section")
 			ul(class="item-section")
 			each item in results.items
-				-var postedDate = item.createdAt
+				- var postedDate = item.createdAt
 				li(class="item-container")
 					div(class="item-description-container")
 						a(class="item-title", target="blank", href="http://#{item.url}") #{item.name}

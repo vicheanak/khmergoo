@@ -8,7 +8,7 @@ exports.all = function(req, res) {
     db.TradeCategory.findAll().then(function(categories){
         return res.jsonp(categories);
     }).catch(function(err){
-        return res.render('error', {
+        return res.render('500', {
             error: err,
             status: 500
         });
@@ -30,7 +30,7 @@ exports.items = function(req, res) {
     }).then(function(items){
         return res.jsonp(items);
     }).catch(function(err){
-        return res.render('error', {
+        return res.render('500', {
             error: err,
             status: 500
         });
@@ -45,7 +45,7 @@ exports.houseForSale = function(req, res){
             secondContent: 'Second Content'
         });
     }).catch(function(err){
-        return res.render('error', {
+        return res.render('500', {
             error: err,
             status: 500
         });

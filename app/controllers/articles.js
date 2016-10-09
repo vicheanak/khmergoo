@@ -8,7 +8,7 @@ exports.all = function(req, res) {
     db.Article.findAll().then(function(articles){
         return res.jsonp(articles);
     }).catch(function(err){
-        return res.render('error', {
+        return res.render('500', {
             error: err,
             status: 500
         });
