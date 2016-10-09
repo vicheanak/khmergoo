@@ -223,10 +223,6 @@ section.content-section{
 	.mobile-nav{
 		display: block;
 	}
-}
-
-@media all screen and (max-width: 800px), all screen and (max-device-width: 800px) {
-
 
 	.item-description-container{
 		@include flex(20 auto);
@@ -235,20 +231,12 @@ section.content-section{
 	.item-container{
 		@include display-flex();
 		@include flex-direction(column);
-		.item-thumbnail{
-			width: 85%;
-			height: auto;
-			padding: 20px;
-		}
 	}
-
-
-
 
 }
 
 
-@media all screen and (max-width: 480px), all screen and (max-device-width: 480px) {
+@media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
 	.page-title{
 		display: none;
 	}
