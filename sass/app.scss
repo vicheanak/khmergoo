@@ -215,6 +215,17 @@ section.content-section{
 	font-size: 12px;
 }
 
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px) {
+	.item-thumbnail{
+		width: 85%;
+		height: auto;
+		padding: 20px;
+	}
+}
+
+
 @media only screen and (max-width: 800px), only screen and (max-device-width: 800px) {
 	aside{
 		display: none;
@@ -231,11 +242,6 @@ section.content-section{
 	.item-container{
 		@include display-flex();
 		@include flex-direction(column);
-		.item-thumbnail{
-			width: 85%;
-			height: auto;
-			padding: 20px;
-		}
 	}
 
 }
