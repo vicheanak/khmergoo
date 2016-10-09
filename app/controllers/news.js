@@ -66,7 +66,7 @@ exports.khmerNews = function(req, res) {
             slug: 'khmer-news',
             currentPage: page
         };
-        return res.render('index', {results: results});
+        return res.render('index', {"results": results});
     }).catch(function(err){
         return res.render('error', {
             error: err,
