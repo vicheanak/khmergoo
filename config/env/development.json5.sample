@@ -1,14 +1,14 @@
 {
     // This is your MYSQL Database configuration
     db: {
-        name: "mean_relational",
-        password: "",
+        name: "khmergoo_sequelize",
+        password: "aaa",
         username: "root",
         host: "localhost",
         port: 3306
     },
     app: {
-        name: "M*EAN Stack Relational - Development"
+        name: "KhmerGoo - The Cambodians"
     },
     // You will need to get your own client id's before this will work properly
     facebook: {

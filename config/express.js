@@ -40,8 +40,9 @@
     }
 
     //Set views path, template engine and default layout
+    app.set('view engine', 'pug');
     app.set('views', config.root + '/app/views');
-    app.set('view engine', 'jade');
+
 
     //Enable jsonp
     app.enable("jsonp callback");
