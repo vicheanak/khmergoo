@@ -29,6 +29,7 @@ exports.items = function(req, res) {
             model:db.Website,
             attributes:['name']
         }],
+        order: [['createdAt', 'DESC']],
         offset: offset,
         limit: limit
     }).then(function(items){
@@ -55,6 +56,7 @@ exports.khmerNews = function(req, res) {
             model:db.Website,
             attributes:['name']
         }],
+        order: [['createdAt', 'DESC']],
         offset: offset,
         limit: limit
     }).then(function(items){
@@ -90,6 +92,7 @@ exports.internationalNews = function(req, res) {
             model:db.Website,
             attributes:['name']
         }],
+        order: [['createdAt', 'DESC']],
         offset: offset,
         limit: limit
     }).then(function(items){

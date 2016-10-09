@@ -11,9 +11,9 @@ block content
 				li(class="item-container")
 					div(class="item-description-container")
 						a(class="item-title", target="blank", href="http://#{item.url}") #{item.name}
-						p(class="item-subtitle") #{item.Website.name} - #{moment().diff(moment(postedDate), 'hours')} hr ago
+						p(class="item-subtitle") #{item.Website.name} - #{moment(postedDate).utc().format('h:m a')}
 						p(class="item-description") #{item.description}
-					img(class="item-thumbnail", src="/images/thumbnail.jpg")
+					img(class="item-thumbnail", src=item.imageUrl)
 	section(class="footer-section")
 		ul(class="pagination-container")
 			- for (var i = 0; i < results.totalPages; i ++){
