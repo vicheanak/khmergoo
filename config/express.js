@@ -56,14 +56,6 @@
         cache: false,
         logging: true
     }));
-    // app.use(
-    //     sassMiddleWare({
-    //         src: config.root + '/sass',
-    //         dest: config.root + '/public/stylesheets',
-    //         prefix: '/stylesheets',
-    //         debug: true,
-    //     })
-    // );
 
 
     app.use(express.static(config.root + '/public'));
@@ -85,9 +77,9 @@
       require(path.resolve(routePath))(app);
   });
 
-    app.get('*',  function (req, res, next) {
-        res.render('index');
-    });
+    // app.get('*',  function (req, res, next) {
+    //     res.render('index');
+    // });
 
     app.use('*',function(req, res){
         res.status(404).render('404', {
