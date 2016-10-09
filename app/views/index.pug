@@ -21,7 +21,8 @@ block content
 					if (results.currentPage == i + 1)
 						span #{i + 1}
 					else
-						a(href="/#{results.slug}?page=#{i + 1}") #{i + 1}
+						- var url = "/" + results.slug + "?page=" + (i + 1)
+						a(href=url) #{i + 1}
 			- }
 	div(class="copyright-container")
 		p We're Cambodians. We always forgive. We always forget. Peace & Love.
