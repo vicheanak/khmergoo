@@ -231,6 +231,11 @@ section.content-section{
 	.item-container{
 		@include display-flex();
 		@include flex-direction(column);
+		.item-thumbnail{
+			width: 85%;
+			height: auto;
+			padding: 20px;
+		}
 	}
 
 }
