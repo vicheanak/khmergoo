@@ -219,11 +219,7 @@ section.content-section{
 and (min-device-width : 320px)
 and (max-device-width : 568px) {
 	.item-container{
-		.item-thumbnail{
-			width: 85%;
-			height: auto;
-			padding: 20px;
-		}
+
 	}
 
 }
@@ -245,6 +241,11 @@ and (max-device-width : 568px) {
 		@include flex-direction(column);
 		.item-description-container{
 			@include flex(20 auto);
+		}
+		.item-thumbnail{
+			width: 85%;
+			height: auto;
+			padding: 20px;
 		}
 	}
 
