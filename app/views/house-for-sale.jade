@@ -1,0 +1,16 @@
+extends layouts/default
+
+block content
+	include layouts/header.jade
+	div(class="body-container")
+		include layouts/aside.jade
+		section
+			h1 HOUSE FOR SALE
+			ul(class="item-section")
+				- for (var x = 1; x < 16; x++)
+					li(class="trade-item-container")
+						div(class="trade-item-description-container")
+							a(class="trade-item-title", href="#") Supported neglected met she therefore unwilling discovery remainder.
+							p(class="trade-item-subtitle") Kohsantepheapdaily - 40 minutes ago
+							p(class="trade-item-description") Way sentiments two indulgence uncommonly own. Diminution to frequently sentiments he connection continuing indulgence. An my exquisite conveying up defective. Shameless see the tolerably how continued. She enable men twenty elinor points appear. Whose merry ten yet was men seven ought balls.
+						img(class="trade-item-thumbnail", src="/images/thumbnail.jpg")

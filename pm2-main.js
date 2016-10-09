@@ -6,7 +6,7 @@ var maxMemory = process.env.WEB_MEMORY || 512;    // 512 is the maximum free Dyn
 pm2.connect(function() {
     pm2.start({
         script    : 'app.js',
-        name      : 'msr',                // ----> THESE ATTRIBUTES ARE OPTIONAL:
+        name      : 'khmergoo',                // ----> THESE ATTRIBUTES ARE OPTIONAL:
         exec_mode : 'cluster',               // set to 'cluster' for cluster execution
         instances : instances,
         max_memory_restart : maxMemory + 'M',   // Auto restart if process taking more than XXmo

@@ -3,19 +3,19 @@
 /**
  * Module dependencies.
  */
-var express = require('express');
-var flash = require('connect-flash');
-var helpers = require('view-helpers');
-var compression = require('compression');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-var path = require('path');
-var config = require('./config');
-var winston = require('./winston');
+ var express = require('express');
+ var helpers = require('view-helpers');
+ var compression = require('compression');
+ var logger = require('morgan');
+ var cookieParser = require('cookie-parser');
+ var bodyParser = require('body-parser');
+ var methodOverride = require('method-override');
+ var path = require('path');
+ var config = require('./config');
+ var winston = require('./winston');
+ var compass = require('node-compass');
 
-module.exports = function(app) {
+ module.exports = function(app) {
 
     winston.info('Initializing Express');
 
@@ -47,6 +47,26 @@ module.exports = function(app) {
     app.enable("jsonp callback");
 
 
+    app.use(compass({
+        comments: true,
+        project: config.root + '/public',
+        css: config.root + '/public/stylesheets',
+        sass: config.root + '/sass',
+        cache: false,
+        logging: true
+    }));
+    // app.use(
+    //     sassMiddleWare({
+    //         src: config.root + '/sass',
+    //         dest: config.root + '/public/stylesheets',
+    //         prefix: '/stylesheets',
+    //         debug: true,
+    //     })
+    // );
+
+
+    app.use(express.static(config.root + '/public'));
+
 
     // request body parsing middleware should be above methodOverride
     app.use(bodyParser.urlencoded({ extended: true }));
@@ -54,8 +74,6 @@ module.exports = function(app) {
     app.use(methodOverride());
 
 
-    //connect flash for flash messages
-    app.use(flash());
 
     //dynamic helpers
     app.use(helpers(config.app.name));
@@ -64,10 +82,10 @@ module.exports = function(app) {
     // Globbing routing files
     config.getGlobbedFiles('./app/routes/**/*.js').forEach(function(routePath) {
       require(path.resolve(routePath))(app);
-    });
+  });
 
     app.get('*',  function (req, res, next) {
-            res.render('index');
+        res.render('index');
     });
 
     app.use('*',function(req, res){
@@ -87,5 +105,7 @@ module.exports = function(app) {
             error: err.stack
         });
     });
+
+    app.locals.moment = require('moment');
 
 };
