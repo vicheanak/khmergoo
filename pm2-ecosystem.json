@@ -7,7 +7,7 @@
     //"instances"  : 4,
     //"exec_mode"  : "cluster_mode",  // defaults to fork
     "args"        : ["--color"],
-    "watch"       : true,
+    "watch"       : false,
     "ignore_watch" : ["pids", "logs", "node_modules", "bower_components"],
     "merge_logs"  : true, // merge logs from all instances in cluster mode
     "cwd"         : ".",

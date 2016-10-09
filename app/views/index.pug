@@ -11,7 +11,7 @@ block content
 				li(class="item-container")
 					div(class="item-description-container")
 						a(class="item-title", target="blank", href="http://#{item.url}") #{item.name}
-						p(class="item-subtitle") #{item.Website.name} - #{moment().utc().diff(moment(postedDate).utc(), 'hours')} hr ago
+						p(class="item-subtitle") #{item.Website.name} - #{moment().diff(moment(postedDate), 'hours')} hr ago
 						p(class="item-description") #{item.description}
 					img(class="item-thumbnail", src="/images/thumbnail.jpg")
 	section(class="footer-section")
