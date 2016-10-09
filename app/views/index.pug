@@ -10,7 +10,7 @@ block content
 				- var postedDate = item.createdAt
 				li(class="item-container")
 					div(class="item-description-container")
-						a(class="item-title", target="blank", href=item.url) #{item.name}
+						a(class="item-title", href=item.url) #{item.name}
 						p(class="item-subtitle") #{item.Website.name} - #{moment(postedDate).utc().format('hh:mm a')}
 						p(class="item-description") #{item.description}
 					img(class="item-thumbnail", src=item.imageUrl)
