@@ -7,11 +7,11 @@ block content
 		section(class="content-section")
 			ul(class="item-section")
 			each item in results.items
-				- var postedDate = item.createdAt
 				li(class="item-container")
 					div(class="item-description-container")
 						a(class="item-title", href=item.url) #{item.name}
-						p(class="item-subtitle") #{item.Website.name} - #{moment(postedDate).utc().format('hh:mm a')}
+						p(class="item-subtitle") #{item.Website.name} - #{item.postedDate}
+						//p(class="item-subtitle") #{moment(item.createdAt).utc().format('YYYY/MM/DD hh:mm a')} - #{item.postedDate}
 						p(class="item-description") #{item.description}
 					img(class="item-thumbnail", src=item.imageUrl)
 	section(class="footer-section")

@@ -3,6 +3,8 @@
 var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
 var winston = require('../../config/winston');
+var moment = require('moment');
+require("moment-duration-format");
 
 exports.all = function(req, res) {
     db.NewsCategory.findAll().then(function(categories){
@@ -46,6 +48,8 @@ exports.khmerNews = function(req, res) {
     var page = req.query.page ? parseInt(req.query.page) : 1;
     var limit = 20;
     var offset = isNaN(page) ? 0 : (page - 1) * limit;
+    var now = moment().utc().format("YYYY-MM-DD HH:mm:ss");
+    var yesterday = moment().utc().add(-1, 'days').format("YYYY-MM-DD HH:mm:ss");
 
     db.NewsArticle.findAndCountAll({
         where: {
@@ -56,10 +60,26 @@ exports.khmerNews = function(req, res) {
             model:db.Website,
             attributes:['name']
         }],
-        order: [['createdAt', 'DESC']],
+        order: [['id', 'DESC']],
+        where: {
+            createdAt: {
+                $gt: yesterday
+            }
+        },
         offset: offset,
         limit: limit
     }).then(function(items){
+
+        for (var i = 0; i < items.rows.length; i ++){
+            var itemCreatedAt = moment(items.rows[i].createdAt).utc().format("DD/MM/YYYY HH:mm:ss");
+            var current = moment().format("DD/MM/YYYY HH:mm:ss");
+            var minutes = moment(current,"DD/MM/YYYY HH:mm:ss").diff(moment(itemCreatedAt,"DD/MM/YYYY HH:mm:ss"), 'minutes');
+
+            var postedDate = moment.duration(minutes, 'minutes').format("h[ម៉ោង] m[នាទី] មុន");
+
+            items.rows[i]['postedDate'] = postedDate;
+        }
+
         var results = {
             total: items.count,
             items: items.rows,
@@ -67,8 +87,11 @@ exports.khmerNews = function(req, res) {
             totalPages: Math.ceil(items.count / limit),
             slug: 'khmer-news',
             currentPage: page,
-            title: 'ពត៌មានជាតិ'
+            title: 'ពត៌មានជាតិ',
         };
+
+        // console.log(results);
+
         return res.render('index', {"results": results});
     }).catch(function(err){
         return res.render('500', {
