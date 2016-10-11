@@ -44,6 +44,6 @@ module.exports = {
 
 
 
-    return queryInterface.bulkInsert('TradeItems', data);
+    // return queryInterface.bulkInsert('TradeItems', data);
   }
 };

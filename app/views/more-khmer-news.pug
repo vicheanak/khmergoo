@@ -1,0 +1,7 @@
+each item in results.items
+	li(class="item-container")
+		div(class="item-description-container")
+			a(class="item-title", href=item.url) #{item.name}
+			p(class="item-subtitle") #{item.Website.name} - #{item.postedDate}
+			p(class="item-description") #{item.description}
+		img(class="item-thumbnail", src=item.imageUrl)

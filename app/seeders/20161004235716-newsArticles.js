@@ -40,6 +40,6 @@ module.exports = {
 
 
 
-    return queryInterface.bulkInsert('NewsArticles', data);
+    // return queryInterface.bulkInsert('NewsArticles', data);
   }
 };

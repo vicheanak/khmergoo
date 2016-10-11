@@ -6,23 +6,16 @@ block content
 		include layouts/aside
 		section(class="content-section")
 			ul(class="item-section")
-			each item in results.items
-				li(class="item-container")
-					div(class="item-description-container")
-						a(class="item-title", href=item.url) #{item.name}
-						p(class="item-subtitle") #{item.Website.name} - #{item.postedDate}
-						//p(class="item-subtitle") #{moment(item.createdAt).utc().format('YYYY/MM/DD hh:mm a')} - #{item.postedDate}
-						p(class="item-description") #{item.description}
-					img(class="item-thumbnail", src=item.imageUrl)
+				each item in results.items
+					li(class="item-container")
+						div(class="item-description-container")
+							a(class="item-title", href=item.url) #{item.name}
+							p(class="item-subtitle") #{item.Website.name} - #{item.postedDate}
+							p(class="item-description") #{item.description}
+						img(class="item-thumbnail", src=item.imageUrl)
 	section(class="footer-section")
-		ul(class="pagination-container")
-			- for (var i = 0; i < results.totalPages; i ++){
-				li(class="item-pagination")
-					if (results.currentPage == i + 1)
-						span #{i + 1}
-					else
-						- var url = "/" + results.slug + "?page=" + (i + 1)
-						a(href=url) #{i + 1}
-			- }
+		div(class="load-more")
+			- var url = "/" + results.slug + "/more/" + results.currentPage
+			a(id="more-link", href=url) ពត៌មានបន្ថែម
 	div(class="copyright-container")
 		p We're Cambodians. We always forgive. We always forget. Love & Peace!

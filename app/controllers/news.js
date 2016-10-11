@@ -44,6 +44,64 @@ exports.items = function(req, res) {
     });
 };
 
+exports.moreKhmerNews = function(req, res){
+    var page = parseInt(req.params.page) + 1;
+    var limit = 20;
+    var offset = isNaN(page) ? 0 : (page - 1) * limit;
+    var now = moment().utc().format("YYYY-MM-DD HH:mm:ss");
+    var yesterday = moment().utc().add(-1, 'days').format("YYYY-MM-DD HH:mm:ss");
+
+    db.NewsArticle.findAndCountAll({
+        include: [
+        {
+            model: db.Website,
+            attributes:['name']
+        },{
+            model: db.NewsCategory,
+            attributes:['name'],
+            where: {
+                id: 1
+            }
+        }],
+        order: [['id', 'DESC']],
+        where: {
+            createdAt: {
+                $gt: yesterday
+            }
+        },
+        offset: offset,
+        limit: limit
+    }).then(function(items){
+
+        for (var i = 0; i < items.rows.length; i ++){
+            var itemCreatedAt = moment(items.rows[i].createdAt).utc().format("DD/MM/YYYY HH:mm:ss");
+            var current = moment().format("DD/MM/YYYY HH:mm:ss");
+            var minutes = moment(current,"DD/MM/YYYY HH:mm:ss").diff(moment(itemCreatedAt,"DD/MM/YYYY HH:mm:ss"), 'minutes');
+
+            var postedDate = moment.duration(minutes, 'minutes').format("h[ម៉ោង] m[នាទី] មុន");
+
+            items.rows[i]['postedDate'] = postedDate;
+        }
+
+        var results = {
+            total: items.count,
+            items: items.rows,
+            limit: limit,
+            totalPages: Math.ceil(items.count / limit),
+            slug: 'khmer-news',
+            currentPage: page,
+            title: 'ពត៌មានជាតិ',
+        };
+
+        return res.render('more-khmer-news', {"results": results});
+    }).catch(function(err){
+        return res.render('500', {
+            error: err,
+            status: 500
+        });
+    });
+};
+
 exports.khmerNews = function(req, res) {
     var page = req.query.page ? parseInt(req.query.page) : 1;
     var limit = 20;

@@ -184,6 +184,27 @@ section.content-section{
 	text-decoration: underline;
 }
 
+#more-link{
+	text-decoration: none;
+	color: black;
+	background: #f2f2f2;
+	padding: 10px;
+	border-radius: 5px;
+	color: #757575;
+	font-family: Battambang;
+}
+
+#more-link:hover{
+	border: 1px solid #c6c6c6;
+	@include background-image(linear-gradient(top,#f8f8f8,#f1f1f1));
+	color: #222;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+#more-link:active {
+    border: 1px solid #4285f4;
+}
+
 .footer-section{
 	@include display-flex();
 	@include flex-direction(row);

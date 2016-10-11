@@ -40,6 +40,6 @@ module.exports = {
 
 
 
-    return queryInterface.bulkInsert('JobItems', data);
+    // return queryInterface.bulkInsert('JobItems', data);
   }
 };

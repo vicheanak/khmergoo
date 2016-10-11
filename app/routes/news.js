@@ -13,6 +13,9 @@ app.route('/news/:NewsCategoryId')
 app.options('/khmer-news', cors());
 app.route('/khmer-news')
     .get(cors(), news.khmerNews);
+app.options('/khmer-news/more/:page', cors());
+app.route('/khmer-news/more/:page')
+    .get(cors(), news.moreKhmerNews);
 app.options('/international-news', cors());
 app.route('/international-news')
     .get(cors(), news.internationalNews);
