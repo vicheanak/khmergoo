@@ -1,8 +1,9 @@
 @import "compass/css3";
 
 @font-face {
-	font-family: "Battambang";
-	src: ("/fonts/Battambang.ttf");
+	font-family: Battambang;
+	src: url(../fonts/Battambang.ttf);
+
 }
 
 $font-stack:    Helvetica, sans-serif;
@@ -161,6 +162,7 @@ section.content-section{
 }
 
 .mob-nav{
+	font-family: Battambang;
 	position: absolute;
 	background: #f1f1f1;
 	width: 200px;
