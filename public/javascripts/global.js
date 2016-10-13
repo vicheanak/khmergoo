@@ -20,7 +20,7 @@ $(function(){
 	}
 
 	$(window).scroll(function () {
-		if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
+		if ($(window).scrollTop() >= $(document).height() - $(window).height() - 500) {
 			if (isActive){
 				isActive = false;
 				$.ajax($('.load-more').data('link'), {
