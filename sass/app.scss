@@ -272,8 +272,10 @@ and (max-device-width : 568px) {
 		@include display-flex();
 		@include flex-direction(column);
 		padding: 2px 0px;
+
 		.item-description-container{
 			@include flex(20 auto);
+			@include order(2);
 			padding: 0px 10px;
 			.item-title {
 				font-size: 19px;
@@ -289,7 +291,9 @@ and (max-device-width : 568px) {
 			}
 		}
 		.item-thumbnail{
-			display: none;
+			@include order(1);
+			width: auto;
+			height: auto;
 		}
 	}
 
