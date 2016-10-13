@@ -16,6 +16,9 @@ header{
 	height: 30px;
 	background: #f1f1f1;
 	padding: 15px;
+	position: fixed;
+	width: 100%;
+	z-index: 10;
 
 	.logo-container{
 		@include flex(1 auto);
@@ -25,7 +28,7 @@ header{
 
 	.page-title{
 		@include flex(20 0px);
-		font-size: 130%;
+		font-size: 100%;
 	}
 
 	.news-header-title{
@@ -77,17 +80,24 @@ aside ul li{
 }
 
 .menu-title{
-	font-size: 130%;
+	font-size: 100%;
 	color: red;
 	border-bottom: 1px solid #f1f1f1;
 }
 
 .news-aside{
 	font-family: 'Battambang';
+	position: fixed;
+	top: 60px;
 }
 
 section.content-section{
 	@include flex(20 0px);
+	.item-section{
+		position: relative;
+		top: 60px;
+		z-index: 1;
+	}
 }
 
 .item-container{

@@ -14,6 +14,11 @@ $(function(){
 
 	var isActive = true;
 
+	if($('.item-title').length < 20){
+		isActive = false;
+		$('.load-more').css('display', 'none');
+	}
+
 	$(window).scroll(function () {
 		if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
 			if (isActive){
@@ -24,9 +29,9 @@ $(function(){
 							isActive = true;
 							$('ul.item-section').append($.parseHTML(data));
 							var link = $('.load-more').data('link');
-							var links = link.split('more/');
+							var links = link.split('page=');
 							var newPage = parseInt(links[1]) + 1;
-							link = links[0] + 'more/' + newPage;
+							link = links[0] + 'page=' + newPage;
 							$('.load-more').data('link', link);
 						}
 						else{

@@ -14,7 +14,5 @@ block content
 							p(class="item-description") #{item.description}
 						img(class="item-thumbnail", src=item.imageUrl)
 	section(class="footer-section")
-		- var url = "/" + results.slug + "/more/" + results.currentPage
+		- var url = results.slug + "?page=1"
 		div(class="load-more", data-link=url)
-	div(class="copyright-container")
-		p Thank you for reading

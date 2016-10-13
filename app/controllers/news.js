@@ -7,114 +7,50 @@ var moment = require('moment');
 require("moment-duration-format");
 
 exports.all = function(req, res) {
-    db.NewsCategory.findAll().then(function(categories){
-        return res.render('index', {categories: categories});
-    }).catch(function(err){
-        return res.render('500', {
-            error: err,
-            status: 500
-        });
-    });
-};
-
-exports.items = function(req, res) {
-    var page = parseInt(req.query.page);
-    var limit = 10;
-    var offset = isNaN(page) ? 0 : (page - 1) * limit;
-
-    db.NewsArticle.findAndCountAll({
-        where: {
-            NewsCategoryId: req.params.NewsCategoryId
-        },
-        include: [
-        {
-            model:db.Website,
-            attributes:['name']
-        }],
-        order: [['createdAt', 'DESC']],
-        offset: offset,
-        limit: limit
-    }).then(function(items){
-        return res.jsonp(items);
-    }).catch(function(err){
-        return res.render('500', {
-            error: err,
-            status: 500
-        });
-    });
-};
-
-exports.moreKhmerNews = function(req, res){
-    var page = parseInt(req.params.page) + 1;
-    var limit = 20;
-    var offset = isNaN(page) ? 0 : (page - 1) * limit;
-    var now = moment().utc().format("YYYY-MM-DD HH:mm:ss");
-    var yesterday = moment().utc().add(-1, 'days').format("YYYY-MM-DD HH:mm:ss");
-
-    db.NewsArticle.findAndCountAll({
-        include: [
-        {
-            model: db.Website,
-            attributes:['name']
-        },{
-            model: db.NewsCategory,
-            attributes:['name'],
-            where: {
-                id: 1
-            }
-        }],
-        order: [['id', 'DESC']],
-        where: {
-            createdAt: {
-                $gt: yesterday
-            }
-        },
-        offset: offset,
-        limit: limit
-    }).then(function(items){
-
-        for (var i = 0; i < items.rows.length; i ++){
-            var itemCreatedAt = moment(items.rows[i].createdAt).utc().format("DD/MM/YYYY HH:mm:ss");
-            var current = moment().format("DD/MM/YYYY HH:mm:ss");
-            var minutes = moment(current,"DD/MM/YYYY HH:mm:ss").diff(moment(itemCreatedAt,"DD/MM/YYYY HH:mm:ss"), 'minutes');
-
-            var postedDate = moment.duration(minutes, 'minutes').format("h[ម៉ោង] m[នាទី] មុន");
-
-            items.rows[i]['postedDate'] = postedDate;
-        }
-
-        var results = {
-            total: items.count,
-            items: items.rows,
-            limit: limit,
-            totalPages: Math.ceil(items.count / limit),
-            slug: 'khmer-news',
-            currentPage: page,
-            title: 'ពត៌មានជាតិ',
-        };
-
-        return res.render('more-khmer-news', {"results": results});
-    }).catch(function(err){
-        return res.render('500', {
-            error: err,
-            status: 500
-        });
-    });
-};
-
-exports.khmerNews = function(req, res) {
     var page = req.query.page ? parseInt(req.query.page) : 1;
     var limit = 20;
     var offset = isNaN(page) ? 0 : (page - 1) * limit;
     var now = moment().utc().format("YYYY-MM-DD HH:mm:ss");
     var yesterday = moment().utc().add(-1, 'days').format("YYYY-MM-DD HH:mm:ss");
 
-    db.NewsArticle.findAndCountAll({
+    var website = {
+        model: db.Website,
+        attributes: ['name']
+    }
+
+    var websiteId = '';
+    var title = 'ពត៌មានជាតិ';
+    if (req.path == '/kohsantepheap'){
+        websiteId = 1;
+        title = 'កោអសន្តិភាព';
+    }
+    if (req.path == '/dapnews'){
+        websiteId = 2;
+        title = 'ដើមអម្ពិល'
+    }
+    if (req.path == '/thmeythmey'){
+        websiteId = 3;
+        title = 'ថ្មីថ្មី';
+    }
+    if (req.path == '/voa'){
+        websiteId = 4;
+        title = 'វីអូអេ';
+    }
+    if (req.path == '/rfa'){
+        websiteId = 10;
+        title = 'អាសីុសេរី';
+    }
+    if (req.path == '/freshnews'){
+        websiteId = 12;
+        title = 'Fresh News';
+    }
+
+    if (req.path != '/')
+        website['where'] = {"id": websiteId}
+
+    var params = {
         include: [
-        {
-            model: db.Website,
-            attributes:['name']
-        },{
+        website,{
             model: db.NewsCategory,
             attributes:['name'],
             where: {
@@ -122,14 +58,12 @@ exports.khmerNews = function(req, res) {
             }
         }],
         order: [['id', 'DESC']],
-        where: {
-            createdAt: {
-                $gt: yesterday
-            }
-        },
         offset: offset,
         limit: limit
-    }).then(function(items){
+    };
+
+
+    db.NewsArticle.findAndCountAll(params).then(function(items){
 
         for (var i = 0; i < items.rows.length; i ++){
             var itemCreatedAt = moment(items.rows[i].createdAt).utc().format("DD/MM/YYYY HH:mm:ss");
@@ -146,11 +80,13 @@ exports.khmerNews = function(req, res) {
             items: items.rows,
             limit: limit,
             totalPages: Math.ceil(items.count / limit),
-            slug: 'khmer-news',
+            slug: req.path,
             currentPage: page,
-            title: 'ពត៌មានជាតិ',
+            title: title,
         };
 
+        if (req.query.page)
+            return res.render('more-khmer-news', {"results": results})
         return res.render('index', {"results": results});
     }).catch(function(err){
         return res.render('500', {
@@ -160,62 +96,4 @@ exports.khmerNews = function(req, res) {
     });
 };
 
-exports.internationalNews = function(req, res) {
-    var page = req.query.page ? parseInt(req.query.page) : 1;
-    var limit = 20;
-    var offset = isNaN(page) ? 0 : (page - 1) * limit;
-    var now = moment().utc().format("YYYY-MM-DD HH:mm:ss");
-    var yesterday = moment().utc().add(-1, 'days').format("YYYY-MM-DD HH:mm:ss");
 
-    db.NewsArticle.findAndCountAll({
-        where: {
-            NewsCategoryId: 2
-        },
-        include: [
-        {
-            model:db.Website,
-            attributes:['name']
-        },{
-            model: db.NewsCategory,
-            attributes:['name'],
-            where: {
-                id: 2
-            }
-        }],
-        order: [['id', 'DESC']],
-        where: {
-            createdAt: {
-                $gt: yesterday
-            }
-        },
-        offset: offset,
-        limit: limit
-    }).then(function(items){
-
-        for (var i = 0; i < items.rows.length; i ++){
-            var itemCreatedAt = moment(items.rows[i].createdAt).utc().format("DD/MM/YYYY HH:mm:ss");
-            var current = moment().format("DD/MM/YYYY HH:mm:ss");
-            var minutes = moment(current,"DD/MM/YYYY HH:mm:ss").diff(moment(itemCreatedAt,"DD/MM/YYYY HH:mm:ss"), 'minutes');
-
-            var postedDate = moment.duration(minutes, 'minutes').format("h[ម៉ោង] m[នាទី] មុន");
-
-            items.rows[i]['postedDate'] = postedDate;
-        }
-
-        var results = {
-            total: items.count,
-            items: items.rows,
-            limit: limit,
-            totalPages: Math.ceil(items.count / limit),
-            slug: 'international-news',
-            title: 'ពត៌មានអន្តរជាតិ',
-            currentPage: page
-        };
-        return res.render('index', {results: results});
-    }).catch(function(err){
-        return res.render('500', {
-            error: err,
-            status: 500
-        });
-    });
-};

@@ -1,14 +1,34 @@
 aside(id="aside-menu")
 	section(class="news-aside")
-		h1(class="menu-title") ពត៌មាន
+		h1(class="menu-title") ប្រភព
 		ul(class="menu-item")
 			li
-				if (results.slug == 'khmer-news')
-					span(class="menu-active") ជាតិ
+				if (results.slug == 'kohsantepheap')
+					span(class="menu-active") កោះសិន្តិភាព
 				else
-					a(href="/khmer-news") ជាតិ
+					a(href="/kohsantepheap") កោះសន្តិភាព
 			li
-				if (results.slug == 'international-news')
-					span(class="menu-active") អន្តរជាតិ
+				if (results.slug == 'rfa')
+					span(class="menu-active") អាសីុសេរី
 				else
-					a(href="/international-news") អន្តរជាតិ
+					a(href="/rfa") អាសីុសេរី
+			li
+				if (results.slug == 'voa')
+					span(class="menu-active") វីអូអេ
+				else
+					a(href="/voa") វីអូអេ
+			li
+				if (results.slug == 'thmeythmey')
+					span(class="menu-active") ថ្មីថ្មី
+				else
+					a(href="/thmeythmey") ថ្មីថ្មី
+			li
+				if (results.slug == 'freshnews')
+					span(class="menu-active") Fresh News
+				else
+					a(href="/freshnews") Fresh News
+			li
+				if (results.slug == 'dapnews')
+					span(class="menu-active") ដើមអម្ពិល
+				else
+					a(href="/dapnews") ដើមអម្ពិល

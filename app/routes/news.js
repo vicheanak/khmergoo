@@ -4,23 +4,33 @@ var news = require('../../app/controllers/news');
 
 module.exports = function(app) {
 
-app.options('/news', cors());
-app.route('/news')
+app.options('/kohsantepheap', cors());
+app.route('/kohsantepheap')
     .get(cors(), news.all);
-app.options('/news/:NewsCategoryId', cors());
-app.route('/news/:NewsCategoryId')
-    .get(cors(), news.items);
-app.options('/khmer-news', cors());
-app.route('/khmer-news')
-    .get(cors(), news.khmerNews);
-app.options('/khmer-news/more/:page', cors());
-app.route('/khmer-news/more/:page')
-    .get(cors(), news.moreKhmerNews);
-app.options('/international-news', cors());
-app.route('/international-news')
-    .get(cors(), news.internationalNews);
+
+app.options('/rfa', cors());
+app.route('/rfa')
+    .get(cors(), news.all);
+
+app.options('/voa', cors());
+app.route('/voa')
+    .get(cors(), news.all);
+
+app.options('/thmeythmey', cors());
+app.route('/thmeythmey')
+    .get(cors(), news.all);
+
+app.options('/freshnews', cors());
+app.route('/freshnews')
+    .get(cors(), news.all);
+
+app.options('/dapnews', cors());
+app.route('/dapnews')
+    .get(cors(), news.all);
+
+
 app.options('/', cors());
 app.route('/')
-    .get(cors(), news.khmerNews);
+    .get(cors(), news.all);
 
 };
