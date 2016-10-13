@@ -184,26 +184,14 @@ section.content-section{
 	text-decoration: underline;
 }
 
-#more-link{
-	text-decoration: none;
-	color: black;
-	background: #f2f2f2;
-	padding: 15px 40px;
-	border-radius: 5px;
-	color: #757575;
-	font-family: Battambang;
+.load-more{
+	background: #fff url(../images/loading.gif) no-repeat center center;
+	width: 100px;
+	height: 100px;
+	background-size: 20%;
 }
 
-#more-link:hover{
-	border: 1px solid #c6c6c6;
-	@include background-image(linear-gradient(top,#f8f8f8,#f1f1f1));
-	color: #222;
-	box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-}
 
-#more-link:active {
-    border: 1px solid #4285f4;
-}
 
 .footer-section{
 	@include display-flex();
@@ -233,7 +221,7 @@ section.content-section{
 }
 
 .copyright-container{
-	font-size: 12px;
+	font-size: 8px;
 }
 
 @media only screen
@@ -260,13 +248,24 @@ and (max-device-width : 568px) {
 	.item-container{
 		@include display-flex();
 		@include flex-direction(column);
+		padding: 2px 0px;
 		.item-description-container{
 			@include flex(20 auto);
+			padding: 0px 10px;
+			.item-title {
+				font-weight: normal;
+				font-size: 12px;
+				padding: 0px;
+			}
+			.item-subtitle{
+				font-size: 10px;
+			}
+			.item-description{
+				display: none;
+			}
 		}
 		.item-thumbnail{
-			width: 85%;
-			height: auto;
-			padding: 20px;
+			display: none;
 		}
 	}
 
@@ -276,6 +275,14 @@ and (max-device-width : 568px) {
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
 	.page-title{
 		display: none;
+	}
+
+	.item-container{
+		.item-description-container{
+			.item-description{
+				display: none;
+			}
+		}
 	}
 
 

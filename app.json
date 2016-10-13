@@ -1,5 +1,5 @@
 {
-    "name": "mean-stack-relational",
+    "name": "KhmerGoo",
     "description": "M*EAN - A Modern Stack: MySQL(Postgres for Heroku), ExpressJS, AngularJS, NodeJS. (BONUS: Passport User Support).",
     "repository": "https://github.com/jpotts18/mean-stack-relational.git",
     "logo": "https://raw.githubusercontent.com/jpotts18/mean-stack-relational/master/public/img/m_logo.png",

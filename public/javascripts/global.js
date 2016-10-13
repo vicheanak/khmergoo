@@ -12,23 +12,33 @@ $(function(){
 		}
 	})
 
-	$('#more-link').on('click', function(e){
-		e.preventDefault();
-		$.ajax(this.href, {
-			success: function(data) {
-				$('ul.item-section').append($.parseHTML(data));
-				var link = $('#more-link').attr('href');
-				var links = link.split('more/');
-				var newPage = parseInt(links[1]) + 1;
-				link = links[0] + 'more/' + newPage;
-				$('#more-link').attr('href', link);
-				// $('#main').html($(data).find('#main *'));
-				// $('#notification-bar').text('The page has been successfully loaded');
-			},
-			error: function(data){
-				console.log('error')
+	var isActive = true;
+
+	$(window).scroll(function () {
+		if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
+			if (isActive){
+				isActive = false;
+				$.ajax($('.load-more').data('link'), {
+					success: function(data) {
+						if (data){
+							isActive = true;
+							$('ul.item-section').append($.parseHTML(data));
+							var link = $('.load-more').data('link');
+							var links = link.split('more/');
+							var newPage = parseInt(links[1]) + 1;
+							link = links[0] + 'more/' + newPage;
+							$('.load-more').data('link', link);
+						}
+						else{
+							$('.load-more').css('display', 'none');
+						}
+					},
+					error: function(data){
+						console.log('error')
+					}
+				});
 			}
-		});
+		}
 	});
 
 });

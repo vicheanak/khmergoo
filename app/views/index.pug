@@ -14,8 +14,7 @@ block content
 							p(class="item-description") #{item.description}
 						img(class="item-thumbnail", src=item.imageUrl)
 	section(class="footer-section")
-		div(class="load-more")
-			- var url = "/" + results.slug + "/more/" + results.currentPage
-			a(id="more-link", href=url) ពត៌មានបន្ថែម
+		- var url = "/" + results.slug + "/more/" + results.currentPage
+		div(class="load-more", data-link=url)
 	div(class="copyright-container")
-		p We're Cambodians. We always forgive. We always forget. Love & Peace!
+		p Thank you for reading
