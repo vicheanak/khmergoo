@@ -2,7 +2,7 @@
 
 @font-face {
 	font-family: "Battambang";
-	src: ("../fonts/Battambang.ttf");
+	src: ("/fonts/Battambang.ttf");
 }
 
 $font-stack:    Helvetica, sans-serif;
@@ -253,10 +253,10 @@ and (max-device-width : 568px) {
 			@include flex(20 auto);
 			padding: 0px 10px;
 			.item-title {
-				font-size: 14px;
+				font-size: 16px;
 				padding: 0px;
-				font-weight: bold;
-				font-family: Battambang;
+				font-weight: normal;
+				font-family: 'Battambang';
 			}
 			.item-subtitle{
 				font-size: 10px;
