@@ -70,7 +70,7 @@ exports.all = function(req, res) {
             var current = moment().format("DD/MM/YYYY HH:mm:ss");
             var minutes = moment(current,"DD/MM/YYYY HH:mm:ss").diff(moment(itemCreatedAt,"DD/MM/YYYY HH:mm:ss"), 'minutes');
 
-            var postedDate = moment.duration(minutes, 'minutes').format("h[ម៉ោង] m[នាទី] មុន");
+            var postedDate = moment.duration(minutes, 'minutes').format("d[ថ្ងៃ] h[ម៉ោង] m[នាទី] មុន");
 
             items.rows[i]['postedDate'] = postedDate;
         }
