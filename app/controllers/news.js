@@ -22,7 +22,7 @@ exports.all = function(req, res) {
     var title = 'ពត៌មានជាតិ';
     if (req.path == '/kohsantepheap'){
         websiteId = 1;
-        title = 'កោអសន្តិភាព';
+        title = 'កោះសន្តិភាព';
     }
     if (req.path == '/dapnews'){
         websiteId = 2;
