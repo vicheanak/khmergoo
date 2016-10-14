@@ -19,6 +19,7 @@ $(function(){
 		$('.load-more').css('display', 'none');
 	}
 
+
 	$(window).scroll(function () {
 		if ($(window).scrollTop() >= $(document).height() - $(window).height() - 500) {
 			if (isActive){

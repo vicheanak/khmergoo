@@ -85,6 +85,8 @@ exports.all = function(req, res) {
             title: title,
         };
 
+        console.log('PJax Request Header', req.headers);
+
         if (req.query.page)
             return res.render('more-khmer-news', {"results": results})
         return res.render('index', {"results": results});
