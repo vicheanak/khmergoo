@@ -27,6 +27,18 @@ header{
 		background-size: 70%;
 	}
 
+	.play-store-container{
+		@include flex(1 auto);
+		@include display-flex();
+		@include flex-flow(column wrap);
+		@include justify-content(center);
+
+		#google-play-badge{
+			width: 135px;
+		}
+	}
+
+
 	.page-title{
 		@include flex(20 0px);
 		font-size: 100%;

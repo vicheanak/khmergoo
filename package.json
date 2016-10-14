@@ -46,6 +46,7 @@
     "proxyquire": "^1.7.3",
     "pug": "^2.0.0-beta6",
     "sequelize": "^3.13.0",
+    "smart-app-banner": "^1.3.0",
     "standard-error": "^1.1.0",
     "view-helpers": "latest",
     "winston": "latest"

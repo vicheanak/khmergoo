@@ -19,6 +19,18 @@ $(function(){
 		$('.load-more').css('display', 'none');
 	}
 
+	var ua = navigator.userAgent.toLowerCase();
+	var isAndroid = ua.indexOf("android") > -1;
+
+	// Cookies.remove('clickedPlayStore');
+	if (!Cookies.get('clickedPlayStore') && isAndroid){
+		$('#google-play-badge').attr('src', '/images/google-play-badge.png');
+	}
+
+	$('#google-play-badge').on('click', function(){
+		Cookies.set('clickedPlayStore', 'true', { expires: 7 });
+		window.location.href = "market://details?id=com.google.android.apps.maps";
+	})
 
 	$(window).scroll(function () {
 		if ($(window).scrollTop() >= $(document).height() - $(window).height() - 500) {
