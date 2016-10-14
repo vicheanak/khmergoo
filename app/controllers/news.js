@@ -7,7 +7,7 @@ var moment = require('moment');
 require("moment-duration-format");
 
 exports.isAuth = function(req, res, next){
-    var token = req.headers['7snl9v6wourqwyt4lsngv2y|3ykk7vnf8nu76i|yeg03r7_x7ku1anh8'];
+    var token = req.headers.authorization;
     var value = '04;oCMQmit>Q8_LxYg4<BS6x%8eX$F7z4d1cl:a0h5CIr9Q!}a2O+6W@Ho5dM@';
     if (token == value){
         next();
