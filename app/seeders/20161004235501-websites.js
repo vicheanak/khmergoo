@@ -12,7 +12,10 @@ module.exports = {
           {id: 6, name: 'Cambodia Daily Khmer', createdAt: now, updatedAt: now},
           {id: 7, name: 'Phnom Penh Post Khmer', createdAt: now, updatedAt: now},
           {id: 8, name: 'Khmer24', createdAt: now, updatedAt: now},
-          {id: 9, name: 'Everjobs', createdAt: now, updatedAt: now}
+          {id: 9, name: 'Everjobs', createdAt: now, updatedAt: now},
+          {id: 10, name: 'RFA', createdAt: now, updatedAt: now},
+          {id: 11, name: 'CEN', createdAt: now, updatedAt: now},
+          {id: 12, name: 'Fresh News', createdAt: now, updatedAt: now}
       ];
 
       return queryInterface.bulkInsert('Websites', data);
