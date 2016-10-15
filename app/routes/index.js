@@ -1,8 +1,12 @@
 'use strict';
+var cors = require('cors');
+var index = require('../../app/controllers/index');
 
 module.exports = function(app) {
-// Home route
-// var index = require('../../app/controllers/index');
-// app.get('/', index.render);
+	app.options('/', cors());
+	app.route('/')
+	.get(cors(), index.render);
 };
+
+
 
