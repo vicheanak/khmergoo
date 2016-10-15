@@ -2,7 +2,7 @@
 console.log('Controller');
 var _ = require('lodash');
 var gcm = require('node-gcm');
-var gcmApiKey = 'AIzaSyBVi03m49Ig9aM34SpkwOCjjiPhrrMoIeE';
+var gcmApiKey = 'AIzaSyDJQ-vDPrqQMVSYAmBxTgfIsuQl9cjjC90';
 var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
 
@@ -31,10 +31,10 @@ exports.push = function(req, res){
     var retry_times = 4; //the number of times to retry sending the message if it fails
     var sender = new gcm.Sender(gcmApiKey); //create a new sender
     var message = new gcm.Message(); //create a new message
-    message.addData('title', 'សម្តេចចូលព្រះរាជវង្ស');
-    message.addData('message', "ពី KhmerGoo");
+    message.addData('title', "You're out of date! Let's update now!");
+    message.addData('message', "KhmerGoo");
     message.addData('sound', 'default');
-    message.collapseKey = 'Testing Push'; //grouping messages
+    message.collapseKey = 'KhmerGoo'; //grouping messages
     message.delayWhileIdle = true; //delay sending while receiving device is offline
     message.timeToLive = 3; //number of seconds to keep the message on
     //server if the device is offline
