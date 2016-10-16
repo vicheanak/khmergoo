@@ -55,6 +55,26 @@ exports.allApi = function(req, res) {
         websiteId = 12;
         title = 'Fresh News';
     }
+    if (req.path == '/api/cen'){
+        websiteId = 11;
+        title = 'CEN'
+    }
+    if (req.path == '/api/kampucheathmey'){
+        websiteId = 5;
+        title = 'កម្ពុជាថ្មី';
+    }
+    if (req.path == '/api/vod'){
+        websiteId = 13;
+        title = 'VOD';
+    }
+    if (req.path == '/api/camnews'){
+        websiteId = 8;
+        title = 'Cam News';
+    }
+    if (req.path == '/api/phnompenhpost'){
+        websiteId = 7;
+        title = 'ភ្នំពេញ ប៉ុស្តិ';
+    }
 
     if (req.path != '/api' && req.path != '/api/')
         website['where'] = {"id": websiteId}
@@ -144,6 +164,26 @@ exports.all = function(req, res) {
     if (req.path == '/freshnews'){
         websiteId = 12;
         title = 'Fresh News';
+    }
+    if (req.path == '/cen'){
+        websiteId = 11;
+        title = 'CEN'
+    }
+    if (req.path == '/kampucheathmey'){
+        websiteId = 5;
+        title = 'កម្ពុជាថ្មី';
+    }
+    if (req.path == '/vod'){
+        websiteId = 13;
+        title = 'VOD';
+    }
+    if (req.path == '/camnews'){
+        websiteId = 8;
+        title = 'Cam News';
+    }
+    if (req.path == '/phnompenhpost'){
+        websiteId = 7;
+        title = 'ភ្នំពេញ ប៉ុស្តិ';
     }
 
     if (req.path != '/')

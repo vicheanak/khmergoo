@@ -28,6 +28,26 @@ app.options('/dapnews', cors());
 app.route('/dapnews')
     .get(cors(), news.all);
 
+app.options('/cen', cors());
+app.route('/cen')
+    .get(cors(), news.all);
+
+app.options('/kampucheathmey', cors());
+app.route('/kampucheathmey')
+    .get(cors(), news.all);
+
+app.options('/vod', cors());
+app.route('/vod')
+    .get(cors(), news.all);
+
+app.options('/camnews', cors());
+app.route('/camnews')
+    .get(cors(), news.all);
+
+app.options('/phnompenhpost', cors());
+app.route('/phnompenhpost')
+    .get(cors(), news.all);
+
 app.options('/', cors());
 app.route('/')
     .get(cors(), news.all);
@@ -55,6 +75,26 @@ app.route('/api/freshnews')
 
 app.options('/api/dapnews', cors());
 app.route('/api/dapnews')
+    .post(cors(), news.isAuth, news.allApi);
+
+app.options('/api/cen', cors());
+app.route('/api/cen')
+    .post(cors(), news.isAuth, news.allApi);
+
+app.options('/api/kampucheathmey', cors());
+app.route('/api/kampucheathmey')
+    .post(cors(), news.isAuth, news.allApi);
+
+app.options('/api/vod', cors());
+app.route('/api/vod')
+    .post(cors(), news.isAuth, news.allApi);
+
+app.options('/api/camnews', cors());
+app.route('/api/camnews')
+    .post(cors(), news.isAuth, news.allApi);
+
+app.options('/api/phnompenhpost', cors());
+app.route('/api/phnompenhpost')
     .post(cors(), news.isAuth, news.allApi);
 
 app.options('/api', cors());
