@@ -9,6 +9,7 @@ var sanitizeHtml = require('sanitize-html');
 var htmlToText = require('html-to-text');
 
 exports.isAuth = function(req, res, next){
+    console.log('isAuth ==> ', req);
     var token = req.headers.authorization;
     var value = '04;oCMQmit>Q8_LxYg4<BS6x%8eX$F7z4d1cl:a0h5CIr9Q!}a2O+6W@Ho5dM@';
     if (token == value){
@@ -127,6 +128,75 @@ exports.allApi = function(req, res) {
         });
     });
 };
+
+exports.getApi = function(req, res){
+    var newsId = req.params.id;
+    db.NewsArticle.find({
+        where: {
+            id: newsId
+        },
+        include: [{
+            model: db.Website,
+            attributes: ['name']
+        }],
+        attributes: ['name', 'htmlcontent', 'url', 'createdAt']
+    }).then(function(news){
+
+        console.log('URL ==> ', news.url);
+        var htmlString = sanitizeHtml(news.htmlcontent, {
+            allowedTags: [ 'p', 'img', 'div' ],
+            exclusiveFilter: function(frame) {
+                var result = false;
+                // if (frame.tag === 'p' && !frame.text.trim()){
+                //     result = true;
+                // }
+                if (frame.tag === 'img' && frame.attribs.src.indexOf('rfa_resources/graphics') !== -1){
+                    result = true;
+                }
+                return result;
+            },
+            allowedAttributes: {
+                '*': [ 'src', 'onerror']
+            },
+            selfClosing: [ 'img' ],
+            textFilter: function(text) {
+                return text.length > 5 ? text : '';
+            },
+            transformTags: {
+                'div': 'p',
+                'img': function(tagName, attribs) {
+                    var src = attribs.src;
+                    if (news.Website.name == 'CEN'){
+                        src = 'http://www.cen.com.kh' + attribs.src;
+                    }
+                    return {
+                        tagName: 'img',
+                        attribs: {
+                            src: src
+                        }
+                    };
+                }
+            }
+        });
+
+        var itemCreatedAt = moment(news.createdAt).utc().format("DD/MM/YYYY HH:mm:ss");
+        var current = moment().format("DD/MM/YYYY HH:mm:ss");
+        var minutes = moment(current,"DD/MM/YYYY HH:mm:ss").diff(moment(itemCreatedAt,"DD/MM/YYYY HH:mm:ss"), 'minutes');
+
+        var postedDate = moment.duration(minutes, 'minutes').format("d[ថ្ងៃ] h[ម៉ោង] m[នាទី] មុន");
+
+        var result = {
+            name: news.name,
+            htmlcontent: htmlString,
+            url: news.url,
+            websiteName: news.Website.name,
+            postedDate: postedDate
+        }
+        return res.jsonp(result)
+    }).catch(function(){
+        return res.send('index', {err: 'Error'});
+    })
+}
 
 exports.get = function(req, res){
     var newsId = req.params.id;

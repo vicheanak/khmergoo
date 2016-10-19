@@ -4,58 +4,62 @@ var news = require('../../app/controllers/news');
 
 module.exports = function(app) {
 
-app.options('/news/:id', cors());
+app.options('/news/:id');
 app.route('/news/:id')
-    .get(cors(), news.get);
+    .get(news.get);
 
-app.options('/kohsantepheap', cors());
+app.options('/kohsantepheap');
 app.route('/kohsantepheap')
-    .get(cors(), news.all);
+    .get(news.all);
 
-app.options('/rfa', cors());
+app.options('/rfa');
 app.route('/rfa')
-    .get(cors(), news.all);
+    .get(news.all);
 
-app.options('/voa', cors());
+app.options('/voa');
 app.route('/voa')
-    .get(cors(), news.all);
+    .get(news.all);
 
-app.options('/thmeythmey', cors());
+app.options('/thmeythmey');
 app.route('/thmeythmey')
-    .get(cors(), news.all);
+    .get(news.all);
 
-app.options('/freshnews', cors());
+app.options('/freshnews');
 app.route('/freshnews')
-    .get(cors(), news.all);
+    .get(news.all);
 
-app.options('/dapnews', cors());
+app.options('/dapnews');
 app.route('/dapnews')
-    .get(cors(), news.all);
+    .get(news.all);
 
-app.options('/cen', cors());
+app.options('/cen');
 app.route('/cen')
-    .get(cors(), news.all);
+    .get(news.all);
 
-app.options('/kampucheathmey', cors());
+app.options('/kampucheathmey');
 app.route('/kampucheathmey')
-    .get(cors(), news.all);
+    .get(news.all);
 
-app.options('/vod', cors());
+app.options('/vod');
 app.route('/vod')
-    .get(cors(), news.all);
+    .get(news.all);
 
-app.options('/camnews', cors());
+app.options('/camnews');
 app.route('/camnews')
-    .get(cors(), news.all);
+    .get(news.all);
 
-app.options('/phnompenhpost', cors());
+app.options('/phnompenhpost');
 app.route('/phnompenhpost')
-    .get(cors(), news.all);
+    .get(news.all);
 
-app.options('/', cors());
+app.options('/');
 app.route('/')
-    .get(cors(), news.all);
+    .get(news.all);
 
+
+app.options('/api/news/:id', cors());
+app.route('/api/news/:id')
+    .post(cors(),  news.isAuth, news.getApi);
 
 app.options('/api/kohsantepheap', cors());
 app.route('/api/kohsantepheap')
