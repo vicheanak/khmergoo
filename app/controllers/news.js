@@ -138,7 +138,7 @@ exports.get = function(req, res){
             model: db.Website,
             attributes: ['name']
         }],
-        attributes: ['name', 'htmlcontent', 'url']
+        attributes: ['name', 'htmlcontent', 'url', 'createdAt']
     }).then(function(news){
 
         console.log('URL ==> ', news.url);
@@ -178,11 +178,18 @@ exports.get = function(req, res){
             }
         });
 
+        var itemCreatedAt = moment(news.createdAt).utc().format("DD/MM/YYYY HH:mm:ss");
+        var current = moment().format("DD/MM/YYYY HH:mm:ss");
+        var minutes = moment(current,"DD/MM/YYYY HH:mm:ss").diff(moment(itemCreatedAt,"DD/MM/YYYY HH:mm:ss"), 'minutes');
+
+        var postedDate = moment.duration(minutes, 'minutes').format("d[ថ្ងៃ] h[ម៉ោង] m[នាទី] មុន");
+
         var result = {
             name: news.name,
             htmlcontent: htmlString,
             url: news.url,
-            websiteName: news.Website.name
+            websiteName: news.Website.name,
+            postedDate: postedDate
         }
         return res.render('htmlcontent', {"result": result})
     }).catch(function(){
