@@ -4,6 +4,10 @@ var news = require('../../app/controllers/news');
 
 module.exports = function(app) {
 
+app.options('/news/:id', cors());
+app.route('/news/:id')
+    .get(cors(), news.get);
+
 app.options('/kohsantepheap', cors());
 app.route('/kohsantepheap')
     .get(cors(), news.all);

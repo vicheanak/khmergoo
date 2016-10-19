@@ -48,14 +48,14 @@
     app.enable("jsonp callback");
 
 
-    // app.use(compass({
-    //     comments: true,
-    //     project: config.root + '/public',
-    //     css: config.root + '/public/stylesheets',
-    //     sass: config.root + '/sass',
-    //     cache: false,
-    //     logging: true
-    // }));
+    app.use(compass({
+        comments: true,
+        project: config.root + '/public',
+        css: config.root + '/public/stylesheets',
+        sass: config.root + '/sass',
+        cache: false,
+        logging: true
+    }));
 
 
     app.use(express.static(config.root + '/public'));

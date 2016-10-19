@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     description: DataTypes.TEXT,
     url: DataTypes.TEXT,
     imageUrl: DataTypes.TEXT,
-    postedDate: DataTypes.VIRTUAL
+    postedDate: DataTypes.VIRTUAL,
+    htmlcontent: DataTypes.TEXT
   }, {
     associate: function(models) {
       NewsArticle.belongsTo(models.Website);

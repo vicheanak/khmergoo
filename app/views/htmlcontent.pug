@@ -1,0 +1,9 @@
+h2(class="html-item-title") #{result.name}
+- var fbUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + result.url + '&src=sdkpreparse'
+div(class="fb-share-button", data-href=result.url, data-layout='button_count', data-size='small', data-mobile-iframe='true')
+	a.fb-xfbml-parse-ignore(target='_blank', href=fbUrl)
+		| Share
+div(class="html-item-description") !{result.htmlcontent}
+div(class="source-link")
+	span អត្ថបទនេះដកស្រង់ចេញពី
+	a(href=result.url) #{result.websiteName}

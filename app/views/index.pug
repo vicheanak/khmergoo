@@ -9,11 +9,16 @@ block content
 				each item in results.items
 					li(class="item-container")
 						div(class="item-description-container")
-							a(class="item-title", href=item.url) #{item.name}
-							p(class="item-subtitle") #{item.Website.name} - #{item.postedDate}
+							- var url = '/news/' + item.id
+							a(class="ajax item-title", href=url) #{item.name}
+							div(class="item-subtitle")
+								- var fbUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + item.url + '&src=sdkpreparse'
+								div(class="fb-share-button", data-href=item.url, data-layout='button_count', data-size='small', data-mobile-iframe='true')
+									a.fb-xfbml-parse-ignore(target='_blank', href=fbUrl)
+										| Share
+								span(class="postedDate") #{item.Website.name} - #{item.postedDate}
 							p(class="item-description") #{item.description}
-						img(class="item-thumbnail", src=item.imageUrl)
+						img(class="item-thumbnail", src=item.imageUrl, onerror="this.style.display='none';")
 	section(class="footer-section")
 		- var url = results.slug + "?page=1"
 		div(class="load-more", data-link=url)
-

@@ -5,6 +5,8 @@ var db = require('../../config/sequelize');
 var winston = require('../../config/winston');
 var moment = require('moment');
 require("moment-duration-format");
+var sanitizeHtml = require('sanitize-html');
+var htmlToText = require('html-to-text');
 
 exports.isAuth = function(req, res, next){
     var token = req.headers.authorization;
@@ -126,6 +128,67 @@ exports.allApi = function(req, res) {
     });
 };
 
+exports.get = function(req, res){
+    var newsId = req.params.id;
+    db.NewsArticle.find({
+        where: {
+            id: newsId
+        },
+        include: [{
+            model: db.Website,
+            attributes: ['name']
+        }],
+        attributes: ['name', 'htmlcontent', 'url']
+    }).then(function(news){
+
+        console.log('URL ==> ', news.url);
+        var htmlString = sanitizeHtml(news.htmlcontent, {
+            allowedTags: [ 'p', 'img', 'div' ],
+            exclusiveFilter: function(frame) {
+                var result = false;
+                // if (frame.tag === 'p' && !frame.text.trim()){
+                //     result = true;
+                // }
+                if (frame.tag === 'img' && frame.attribs.src.indexOf('rfa_resources/graphics') !== -1){
+                    result = true;
+                }
+                return result;
+            },
+            allowedAttributes: {
+                '*': [ 'src', 'onerror']
+            },
+            selfClosing: [ 'img' ],
+            textFilter: function(text) {
+                return text.length > 5 ? text : '';
+            },
+            transformTags: {
+                'div': 'p',
+                'img': function(tagName, attribs) {
+                    var src = attribs.src;
+                    if (news.Website.name == 'CEN'){
+                        src = 'http://www.cen.com.kh' + attribs.src;
+                    }
+                    return {
+                        tagName: 'img',
+                        attribs: {
+                            src: src
+                        }
+                    };
+                }
+            }
+        });
+
+        var result = {
+            name: news.name,
+            htmlcontent: htmlString,
+            url: news.url,
+            websiteName: news.Website.name
+        }
+        return res.render('htmlcontent', {"result": result})
+    }).catch(function(){
+        return res.send('index', {err: 'Error'});
+    })
+}
 
 exports.all = function(req, res) {
     var page = req.query.page ? parseInt(req.query.page) : 1;
@@ -190,6 +253,7 @@ exports.all = function(req, res) {
         website['where'] = {"id": websiteId}
 
     var params = {
+        attributes: ['id', 'name', 'url', 'description', 'imageUrl', 'createdAt', 'updatedAt'],
         include: [
         website,{
             model: db.NewsCategory,
@@ -215,6 +279,8 @@ exports.all = function(req, res) {
 
             items.rows[i]['postedDate'] = postedDate;
         }
+
+
 
         var results = {
             total: items.count,
