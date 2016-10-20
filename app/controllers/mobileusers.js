@@ -19,16 +19,7 @@ exports.isAuth = function(req, res, next){
 }
 
 exports.create = function(req, res){
-    console.log('Khmer News ===> ', req.body);
-    db.MobileUsers.create(req.body).then(function(mobileUser){
-        return res.jsonp(mobileUser);
-    }).catch(function(err){
-        return res.jsonp({error: 'Saved failed'});
-    });
-}
-
-exports.createDeviceTokenKhmerNews = function(req, res){
-    console.log('create device token ===> ', req.body);
+    console.log('DeviceToken ===> ', req.body);
     db.MobileUsers.create(req.body).then(function(mobileUser){
         return res.jsonp(mobileUser);
     }).catch(function(err){
@@ -46,7 +37,7 @@ exports.pushios = function(req, res){
         cert.cert = root + '/app/cert/devcert.pem';
         cert.key = root + '/app/cert/devkey.pem';
     }
-    else{
+    else if(req.body.appName == 'khmernews'){
         cert.cert = root + '/app/cert/khmernews_devcert.pem';
         cert.key = root + '/app/cert/khmernews_devkey.pem';
     }
@@ -59,7 +50,7 @@ exports.pushios = function(req, res){
 
 
     let users = [
-    { name: "Wendy", "devices": ["ffabf748fbe84724b5216a464f926cc7d87304e474b1e05c916e9a7ebddeaf36"]},
+    { name: "Wendy", "devices": ["308bc8d0aa4789774d06b44ee1ec7dcc241afd6fad27689e770d2afa217eebe3"]},
     ];
 
 
@@ -78,10 +69,10 @@ exports.pushios = function(req, res){
             console.log("sent:", result.sent.length);
             console.log("failed:", result.failed.length);
             console.log(result.failed);
+            service.shutdown();
         });
     });
 
-    service.shutdown();
 }
 
 exports.push = function(req, res){

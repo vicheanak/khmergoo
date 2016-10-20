@@ -12,10 +12,6 @@ module.exports = function(app) {
 	app.route('/createDeviceToken')
 	.post(cors(), mobileusers.isAuth, mobileusers.create);
 
-	app.options('/createDeviceTokenKhmerNews', cors());
-	app.route('/createDeviceTokenKhmerNews')
-	.post(cors(), mobileusers.isAuth, mobileusers.createDeviceTokenKhmerNews);
-
 	app.options('/pushios', cors());
 	app.route('/pushios')
 	.post(cors(), mobileusers.isAuth, mobileusers.pushios);
