@@ -24,7 +24,6 @@ bower_components/
 node_modules/
 public/lib
 test/coverage/
-migrations/
 
 # Configuration Files
 /config/env/development.json5
