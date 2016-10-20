@@ -9,7 +9,6 @@ var sanitizeHtml = require('sanitize-html');
 var htmlToText = require('html-to-text');
 
 exports.isAuth = function(req, res, next){
-    console.log('isAuth ==> ', req);
     var token = req.headers.authorization;
     var value = '04;oCMQmit>Q8_LxYg4<BS6x%8eX$F7z4d1cl:a0h5CIr9Q!}a2O+6W@Ho5dM@';
     if (token == value){

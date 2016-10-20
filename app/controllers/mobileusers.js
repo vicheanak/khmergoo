@@ -2,9 +2,10 @@
 console.log('Controller');
 var _ = require('lodash');
 var gcm = require('node-gcm');
-var gcmApiKey = 'AIzaSyDJQ-vDPrqQMVSYAmBxTgfIsuQl9cjjC90';
 var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
+var path = require('path');
+var fs = require('fs');
 
 exports.isAuth = function(req, res, next){
     var token = req.headers.authorization;
@@ -18,6 +19,7 @@ exports.isAuth = function(req, res, next){
 }
 
 exports.create = function(req, res){
+    console.log('Khmer News ===> ', req.body);
     db.MobileUsers.create(req.body).then(function(mobileUser){
         return res.jsonp(mobileUser);
     }).catch(function(err){
@@ -25,9 +27,66 @@ exports.create = function(req, res){
     });
 }
 
+exports.createDeviceTokenKhmerNews = function(req, res){
+    console.log('create device token ===> ', req.body);
+    db.MobileUsers.create(req.body).then(function(mobileUser){
+        return res.jsonp(mobileUser);
+    }).catch(function(err){
+        return res.jsonp({error: 'Saved failed'});
+    });
+}
+
+exports.pushios = function(req, res){
+
+    const apn = require("apn");
+
+    var root = process.cwd();
+    var cert = {};
+    if (req.body.appName == 'khmergoo'){
+        cert.cert = root + '/app/cert/devcert.pem';
+        cert.key = root + '/app/cert/devkey.pem';
+    }
+    else{
+        cert.cert = root + '/app/cert/khmernews_devcert.pem';
+        cert.key = root + '/app/cert/khmernews_devkey.pem';
+    }
+    var options = {
+        production: false,
+        cert: cert.cert,
+        key:  cert.key,
+        enhanced: true,
+    };
+
+
+    let users = [
+    { name: "Wendy", "devices": ["ffabf748fbe84724b5216a464f926cc7d87304e474b1e05c916e9a7ebddeaf36"]},
+    ];
+
+
+    let service = new apn.Provider(options);
+
+    users.forEach( (user) => {
+
+        let note = new apn.Notification();
+        note.alert = `Hey ${user.name}, សួស្តីអាគុក`;
+
+        note.topic = "com.khmergoo.app";
+
+        console.log(`Sending: ${note.compile()} to ${user.devices}`);
+
+        service.send(note, user.devices).then( result => {
+            console.log("sent:", result.sent.length);
+            console.log("failed:", result.failed.length);
+            console.log(result.failed);
+        });
+    });
+
+    service.shutdown();
+}
+
 exports.push = function(req, res){
 	var registrationTokens = []; //create array for storing device tokens
-
+    var gcmApiKey = req.body.appName == 'khmergoo' ? 'AIzaSyDJQ-vDPrqQMVSYAmBxTgfIsuQl9cjjC90' : 'AIzaSyAUo6kxla5v0I-wFY-KKg4PQZfyYrlBbig';
     var retry_times = 4; //the number of times to retry sending the message if it fails
     var sender = new gcm.Sender(gcmApiKey); //create a new sender
     var message = new gcm.Message(); //create a new message

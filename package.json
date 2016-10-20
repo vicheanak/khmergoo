@@ -17,6 +17,7 @@
     "start": "nodemon app.js"
   },
   "dependencies": {
+    "apn": "^2.1.1",
     "async": "latest",
     "body-parser": "^1.14.1",
     "bower": "latest",
