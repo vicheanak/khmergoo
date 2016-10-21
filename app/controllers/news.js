@@ -82,9 +82,9 @@ exports.allApi = function(req, res) {
         website['where'] = {"id": websiteId}
 
     var orderBy = [['id', 'DESC']];
-    if (req.body.appName && req.body.appName == 'khmernews'){
-        orderBy = [['id', 'ASC']];
-    }
+    // if (req.body.appName && req.body.appName == 'khmernews'){
+    //     orderBy = [['id', 'ASC']];
+    // }
 
     var params = {
         include: [
