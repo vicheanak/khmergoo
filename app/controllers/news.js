@@ -81,6 +81,11 @@ exports.allApi = function(req, res) {
     if (req.path != '/api' && req.path != '/api/')
         website['where'] = {"id": websiteId}
 
+    var orderBy = [['id', 'DESC']];
+    if (req.body.appName && req.body.appName == 'khmernews'){
+        orderBy = [['id', 'ASC']];
+    }
+
     var params = {
         include: [
         website,{
@@ -90,7 +95,7 @@ exports.allApi = function(req, res) {
                 id: 1
             }
         }],
-        order: [['id', 'DESC']],
+        order: orderBy,
         offset: offset,
         limit: limit
     };
