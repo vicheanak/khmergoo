@@ -148,7 +148,8 @@ exports.getApi = function(req, res){
 
         console.log('URL ==> ', news.url);
         var htmlString = sanitizeHtml(news.htmlcontent, {
-            allowedTags: [ 'p', 'img', 'div' ],
+            // allowedTags: [ 'p', 'img', 'div' ],
+            allowedTags: [ 'p', 'div' ],
             exclusiveFilter: function(frame) {
                 var result = false;
                 // if (frame.tag === 'p' && !frame.text.trim()){
