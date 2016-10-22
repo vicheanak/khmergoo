@@ -80,7 +80,7 @@ exports.allApi = function(req, res) {
 
     website['where'] = {};
     website['where']['id'] = {
-        $notIn: [8]
+        $notIn: [8, 2]
     }
 
     if (req.path != '/api' && req.path != '/api/')
