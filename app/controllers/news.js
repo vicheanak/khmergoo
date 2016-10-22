@@ -184,6 +184,16 @@ exports.getApi = function(req, res){
             }
         });
 
+        htmlString = sanitizeHtml(htmlString, {
+            exclusiveFilter: function(frame) {
+                var result = false;
+                if (frame.tag === 'p' && !frame.text.trim()){
+                    result = true;
+                }
+                return result;
+            }
+        });
+
         var itemCreatedAt = moment(news.createdAt).utc().format("DD/MM/YYYY HH:mm:ss");
         var current = moment().format("DD/MM/YYYY HH:mm:ss");
         var minutes = moment(current,"DD/MM/YYYY HH:mm:ss").diff(moment(itemCreatedAt,"DD/MM/YYYY HH:mm:ss"), 'minutes');
