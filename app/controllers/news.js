@@ -78,6 +78,11 @@ exports.allApi = function(req, res) {
         title = 'ភ្នំពេញ ប៉ុស្តិ';
     }
 
+    website['where'] = {};
+    website['where']['id'] = {
+        $notIn: [8]
+    }
+
     if (req.path != '/api' && req.path != '/api/')
         website['where'] = {"id": websiteId}
 
@@ -86,9 +91,12 @@ exports.allApi = function(req, res) {
     //     orderBy = [['id', 'ASC']];
     // }
 
+
+
     var params = {
         include: [
-        website,{
+        website,
+        {
             model: db.NewsCategory,
             attributes:['name'],
             where: {
