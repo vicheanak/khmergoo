@@ -94,6 +94,7 @@ exports.allApi = function(req, res) {
 
 
     var params = {
+        attributes:['name', 'imageUrl', 'postedDate', 'description' ],
         include: [
         website,
         {
@@ -156,8 +157,8 @@ exports.getApi = function(req, res){
 
         console.log('URL ==> ', news.url);
         var htmlString = sanitizeHtml(news.htmlcontent, {
-            // allowedTags: [ 'p', 'img', 'div' ],
-            allowedTags: [ 'p', 'div' ],
+            allowedTags: [ 'p', 'img', 'div' ],
+            // allowedTags: [ 'p', 'div' ],
             exclusiveFilter: function(frame) {
                 var result = false;
                 // if (frame.tag === 'p' && !frame.text.trim()){
@@ -189,16 +190,6 @@ exports.getApi = function(req, res){
                         }
                     };
                 }
-            }
-        });
-
-        htmlString = sanitizeHtml(htmlString, {
-            exclusiveFilter: function(frame) {
-                var result = false;
-                if (frame.tag === 'p' && !frame.text.trim()){
-                    result = true;
-                }
-                return result;
             }
         });
 
@@ -270,6 +261,7 @@ exports.get = function(req, res){
                 }
             }
         });
+
 
         var itemCreatedAt = moment(news.createdAt).utc().format("DD/MM/YYYY HH:mm:ss");
         var current = moment().format("DD/MM/YYYY HH:mm:ss");
