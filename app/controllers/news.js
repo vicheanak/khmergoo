@@ -94,7 +94,7 @@ exports.allApi = function(req, res) {
 
 
     var params = {
-        attributes:['name', 'imageUrl', 'postedDate', 'description' ],
+        attributes:['id', 'name', 'imageUrl', 'postedDate', 'description' ],
         include: [
         website,
         {
