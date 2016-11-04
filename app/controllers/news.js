@@ -78,20 +78,12 @@ exports.allApi = function(req, res) {
         title = 'ភ្នំពេញ ប៉ុស្តិ';
     }
 
-    website['where'] = {};
-    website['where']['id'] = {
-        $notIn: [8, 2]
-    }
+
+
+
 
     if (req.path != '/api' && req.path != '/api/')
         website['where'] = {"id": websiteId}
-
-    var orderBy = [['id', 'DESC']];
-    // if (req.body.appName && req.body.appName == 'khmernews'){
-    //     orderBy = [['id', 'ASC']];
-    // }
-
-
 
     var params = {
         attributes:['id', 'name', 'imageUrl', 'postedDate', 'description' ],
@@ -104,7 +96,7 @@ exports.allApi = function(req, res) {
                 id: 1
             }
         }],
-        order: orderBy,
+        order: [['id', 'DESC']],
         offset: offset,
         limit: limit
     };
